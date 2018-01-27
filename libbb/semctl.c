@@ -31,6 +31,10 @@
 #endif
 #include "libbb.h"
 
+#ifndef __NR_semctl
+#define __NR_semctl 66
+#endif
+
 /* code from GLIBC */
 int semctl(int semid, int semnum, int cmd, ...) {
   union semun arg;
