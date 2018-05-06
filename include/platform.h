@@ -570,7 +570,7 @@ typedef void (*sighandler_t)(int);
 #endif
 
 #ifndef HAVE_STPCPY
-extern char *stpcpy(char *p, const char *to_add) FAST_FUNC;
+extern char *stpcpy(char *p, const char *to_add);
 #endif
 
 #ifndef HAVE_MEMPCPY
@@ -628,6 +628,11 @@ extern int issetugid(void);
 
 #ifndef HAVE_ETHER_ATON_R
 extern struct ether_addr *ether_aton_r (const char *asc, struct ether_addr *addr);
+#endif
+
+#if defined(__i386__) && __ANDROID_API__ < 18
+/* Everyone except x86 had ffs since the beginning. */
+static __inline int ffs(int __n) { return __builtin_ffs(__n); }
 #endif
 
 #endif

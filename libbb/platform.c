@@ -156,7 +156,7 @@ char* FAST_FUNC strsep(char **stringp, const char *delim)
 #endif
 
 #ifndef HAVE_STPCPY
-char* FAST_FUNC stpcpy(char *p, const char *to_add)
+char* stpcpy(char *p, const char *to_add)
 {
 	while ((*p = *to_add) != '\0') {
 		p++;
@@ -224,6 +224,7 @@ int issetugid(void)
 
 #ifndef HAVE_ETHER_ATON_R
 
+#include <net/ethernet.h>
 #include <netinet/ether.h>
 #include <netinet/if_ether.h>
 
@@ -233,11 +234,11 @@ struct ether_addr *ether_aton_r (const char *asc, struct ether_addr *addr)
 	for (cnt = 0; cnt < 6; ++cnt) {
 		unsigned int number;
 		char ch;
-		ch = _tolower (*asc++);
+		ch = tolower (*asc++);
 		if ((ch < '0' || ch > '9') && (ch < 'a' || ch > 'f'))
 			return NULL;
 		number = isdigit (ch) ? (ch - '0') : (ch - 'a' + 10);
-		ch = _tolower (*asc);
+		ch = tolower (*asc);
 		if ((cnt < 5 && ch != ':') || (cnt == 5 && ch != '\0' && !isspace (ch))) {
 			++asc;
 			if ((ch < '0' || ch > '9') && (ch < 'a' || ch > 'f'))
