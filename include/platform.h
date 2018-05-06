@@ -414,6 +414,7 @@ typedef unsigned smalluint;
 #define HAVE_PRINTF_PERCENTM 1
 #define HAVE_WAIT3 1
 #define HAVE_ISSETUGID 1
+#define HAVE_ETHER_ATON_R 1
 
 #if defined(__UCLIBC__)
 # if UCLIBC_VERSION < KERNEL_VERSION(0, 9, 32)
@@ -524,6 +525,7 @@ typedef unsigned smalluint;
 #  undef HAVE_TTYNAME_R
 #  undef HAVE_GETLINE
 #  undef HAVE_STPCPY
+#  undef HAVE_ETHER_ATON_R
 # else
 #  undef HAVE_WAIT3
 # endif
@@ -622,6 +624,10 @@ static pid_t wait3(int* status, int options, struct rusage* rusage) { return wai
 
 #ifndef HAVE_ISSETUGID
 extern int issetugid(void);
+#endif
+
+#ifndef HAVE_ETHER_ATON_R
+extern struct ether_addr *ether_aton_r (const char *asc, struct ether_addr *addr);
 #endif
 
 #endif
