@@ -77,9 +77,12 @@
 //usage:       "/dev/sda3             17381728  17107080    274648      98% /\n"
 
 #include <mntent.h>
-#include <sys/statvfs.h>
+#include <sys/vfs.h>
 #include "libbb.h"
 #include "unicode.h"
+
+/* Hack for Android API <21 since it does not include sys/statvfs.h */
+#define statvfs statfs
 
 #if !ENABLE_FEATURE_HUMAN_READABLE
 static unsigned long kscale(unsigned long b, unsigned long bs)
